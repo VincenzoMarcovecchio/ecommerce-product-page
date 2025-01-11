@@ -1,0 +1,442 @@
+*,
+*::after,
+*::before{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Kumbh Sans", serif;
+
+}
+body {
+    overflow-x: hidden;
+    min-height: 100vh;
+    max-width: 1440px;
+
+}
+.html{
+    font-size: 62.5%;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 4rem;
+    border: 1px solid #232323;
+    padding: 1.5rem;
+}
+
+.logo {
+    margin-left: 1rem;
+    margin-bottom: 5px;
+
+}
+
+.right-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: auto;
+}
+
+.profile-picture {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-left: 1.5rem;
+}
+#menuToggle
+{
+  display: block;
+  /* You can also use relative/absolute here if you want to stay on the top */
+  position: relative;
+  z-index: 2;  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+  margin-bottom: 0;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+ 
+
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: fixed;
+  max-width: 400px;
+  width: 80vw;
+  height: 109vh;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  background: #fbf7f7;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+
+#menu::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: rgba(0, 4, 4, 0.107);
+    display: none;
+}
+
+#menuToggle input:checked ~ #menu::after {
+        display: block;
+        transform: translate(0%, 0);
+
+}
+
+
+
+ #menuCheckbox input:checked #menuToggle {
+        position: fixed !important;
+}
+
+
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+#menu li label
+{
+  cursor: pointer;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+
+.quantity-thumb {
+    position: absolute;
+    background-color: hsl(26, 100%, 55%);
+    border-radius: 100vmax;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: smaller;
+    top: 10px;
+    right: 65px;
+    display: none;
+}
+hr {
+    height: 1px;
+    margin: 1rem 0 0 0;
+}
+.splide__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.splide__slide {
+  opacity: 0.6;
+}
+
+
+.splide__slide.is-active {
+  opacity: 1;
+}
+
+#thumbnail-carousel {
+    display: none;
+}
+.splide__arrow {
+    width: 3em !important;
+    height: 3em !important;
+    opacity: 1 !important;
+}
+.splide__slide img {
+    max-height: 55vh;
+}
+.hero-product {
+    display: flex;
+    flex-direction: column;
+}
+.sneaker-company {
+    text-transform: uppercase;
+    color: hsl(219, 9%, 45%);
+    margin: 1rem auto 1rem ;
+    font-size: 0.8rem;
+}
+.right-product  {
+    padding: 1.5rem;
+}
+.right-product h3 {
+color: hsl(220, 13%, 13%);
+ margin: 1rem auto 1rem ;
+ font-size: 1.6rem;
+
+}
+.right-product p {
+color: hsl(220, 13%, 13%);
+ margin: 1rem auto 1rem ;
+ font-size: 1rem;
+
+}
+.product-price {
+    display: flex;
+    align-items: center;
+}
+.price {
+    font-size: 1.3rem;
+    font-weight: 700;
+} 
+.discount {
+    color: #cdcdcd;
+    background-color: hsl(220, 13%, 13%);
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.6rem;
+    margin-left: 1rem;
+}
+del {
+    margin-left: auto;
+    color: hsl(219, 9%, 45%);
+    font-weight: 500;
+}
+.counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: hsl(25, 100%, 94%) ;
+    color:  hsl(220, 13%, 13%);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 1rem auto;
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+}
+.counter span:first-child {
+    color: hsl(26, 100%, 55%);
+    font-size: 1.5rem;
+}
+.counter span:nth-child(2) {
+    color: hsl(220, 13%, 13%);
+}
+.counter span:last-child {
+    color: hsl(26, 100%, 55%);
+    font-size: 1.5rem;
+}
+.price-action button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: hsl(26, 100%, 55%);
+    font-weight: 500;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 4px;
+}
+.price-action svg {
+margin-right: 0.8rem;
+}
+.cart {
+    border: 1px solid #232323;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 75px;
+    width: 96%;
+    margin: auto;
+   
+    box-shadow:0px 33px 28px 0px hsl(220, 14%, 95%);
+    border-radius: 8px;
+    z-index: 50;
+    background-color: hsl(220, 14%, 95%);
+
+}
+.cart span {
+    padding: 1rem 0 0 0;
+    display: flex;
+    align-items: center;
+    margin-left: 1.3rem;
+}
+
+.cart-items {
+     padding:  0 1.3rem 1.3rem  1.3rem;
+}
+.cart-container {
+display: flex;
+align-items: center;
+justify-content: flex-start;
+}
+.cart-container svg {
+    margin-left: 1rem;
+    margin-top: 0.2rem;
+}
+.image-small {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 4px;  
+  margin-right: 1rem;
+}
+@media (min-width: 900px){
+   
+   body {
+    max-width: 69%;
+    margin: auto;
+}
+    nav {
+        position: relative;
+    }
+    #menuToggle span {
+        display: none;
+    }
+
+   #menu {
+    position: absolute;
+    top: -144px;
+    display: flex;
+    left: 150px;
+    margin: 0 auto;
+    background-color: unset;
+    transform: unset;
+    height: fit-content;
+    width: fit-content;
+
+   }
+   #menu li {
+    font-size: 0.8rem;
+    margin-right: 1rem;
+   }
+.splide__slide img {
+    max-height: unset;
+}
+    #thumbnail-carousel {
+    display: block;
+    margin-top: 1.7rem;
+} 
+.hero-product {
+   margin: 6rem auto;
+}
+
+.left-product {
+    max-width: 30vw;
+}
+
+.left-product img {
+    border-radius: 12px;
+}
+
+.hero-product {
+    flex-direction: row;
+}
+
+}
