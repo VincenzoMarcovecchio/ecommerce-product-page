@@ -103,22 +103,24 @@
     <div class="left-product">
       <section id="main-carousel" class="splide"
         aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
-        <div class="splide__track">
-          <ul class="splide__list">
-            <li class="splide__slide">
-              <img src="./images/image-product-1.jpg" alt="">
-            </li>
-            <li class="splide__slide">
-              <img src="./images/image-product-2.jpg" alt="">
-            </li>
-            <li class="splide__slide">
-              <img src="./images/image-product-3.jpg" alt="">
-            </li>
-            <li class="splide__slide">
-              <img src="./images/image-product-4.jpg" alt="">
-            </li>
-          </ul>
-        </div>
+        <button class="btn btn-open">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+                <img src="./images/image-product-1.jpg" alt="">
+              </li>
+              <li class="splide__slide">
+                <img src="./images/image-product-2.jpg" alt="">
+              </li>
+              <li class="splide__slide">
+                <img src="./images/image-product-3.jpg" alt="">
+              </li>
+              <li class="splide__slide">
+                <img src="./images/image-product-4.jpg" alt="">
+              </li>
+            </ul>
+          </div>
+        </button>
       </section>
       <section id="thumbnail-carousel" class="splide"
         aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
@@ -169,94 +171,170 @@
     </div>
   </div>
 
-
+  <section class="modal hidden">
+    <div class="flex">
+      <button class="btn-close">⨉</button>
+    </div>
+    <div id="main-carousel-modal" class="splide"
+      aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
+      <div class="splide__track">
+        <ul class="splide__list">
+          <li class="splide__slide">
+            <img src="./images/image-product-1.jpg" alt="">
+          </li>
+          <li class="splide__slide">
+            <img src="./images/image-product-2.jpg" alt="">
+          </li>
+          <li class="splide__slide">
+            <img src="./images/image-product-3.jpg" alt="">
+          </li>
+          <li class="splide__slide">
+            <img src="./images/image-product-4.jpg" alt="">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="thumbnail-carousel-modal" class="splide"
+      aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
+      <div class="splide__track">
+        <ul class="splide__list">
+          <li class="splide__slide">
+            <img src="./images/image-product-1-thumbnail.jpg" alt="">
+          </li>
+          <li class="splide__slide">
+            <img src="./images/image-product-2-thumbnail.jpg" alt="">
+          </li>
+          <li class="splide__slide">
+            <img src="./images/image-product-3-thumbnail.jpg" alt="">
+          </li>
+          <li class="splide__slide">
+            <img src="./images/image-product-4-thumbnail.jpg" alt="">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <div class="overlay hidden"></div>
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="#">Your Name Here</a>.
   </div>
   <script>
-    var checkbox = document.querySelector("input[id=menuCheckbox]");
-    checkbox.addEventListener('change', function () {
-      if (this.checked) {
-        document.querySelector("#menuToggle").style = "position:fixed"
-      } else {
-        document.querySelector("#menuToggle").style = "position:relative"
-      }
-    });
-    // Initialize product quantity
-    let productQuantity = 1;
-    let cart = [];
-    let productPrice = 125.00; // Set product price to $125.00
+    document.addEventListener('DOMContentLoaded', function () {
+      const modal = document.querySelector(".modal");
+      const overlay = document.querySelector(".overlay");
+      const openModalBtn = document.querySelector(".btn-open");
+      const closeModalBtn = document.querySelector(".btn-close");
 
-    function toggleVisibility() {
-      var div = document.querySelector(".cart");
-      div.style.display = div.style.display == "none" ? "block" : "none";
-      if (!cart.length) {
-        document.getElementById('cart-items').innerHTML = "<p>Your cart is empty</p>"
+      // close modal function
+      const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+      };
 
-      }
-    }
+      // close the modal when the close button and overlay is clicked
+      closeModalBtn.addEventListener("click", closeModal);
+      overlay.addEventListener("click", closeModal);
 
-    // Function to increase product quantity
-    function increaseQuantity() {
-      productQuantity++;
-      updateQuantityDisplay();
-    }
-
-    // Function to decrease product quantity
-    function decreaseQuantity() {
-      if (productQuantity > 1) {
-        productQuantity--;
-      }
-      updateQuantityDisplay();
-    }
-
-    function deleteItem() {
-      cart = []
-      if (!cart.length) {
-        document.getElementById('cart-items').innerHTML = "<p>Your cart is empty</p>"
-        document.querySelector(".quantity-thumb").innerHTML = ""
-        document.querySelector(".quantity-thumb").style = "display:none"
-      }
-    }
-    // Function to update the quantity display
-    function updateQuantityDisplay() {
-      document.getElementById('quantity').innerText = productQuantity;
-    }
-    // Function to update the price display
-    function updatePriceDisplay() {
-      document.getElementById('price').innerText = productPrice.toFixed(2);
-    }
-
-    // Function to add product to cart
-    function addToCart() {
-      if (productQuantity > 0) {
-        const existingItemIndex = cart.findIndex(item => item.productName === 'Fall Limited Edition Sneakers');
-        if (existingItemIndex >= 0) {
-          // If the product already exists in the cart, update its quantity
-          cart[existingItemIndex].quantity += productQuantity;
-        } else {
-          // Otherwise, add a new product to the cart
-          cart.push({ productName: 'Fall Limited Edition Sneakers', price: productPrice, quantity: productQuantity });
+      // close modal when the Esc key is pressed
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
         }
-        updateCartDisplay();
-      } else {
-        alert('Quantity must be greater than 0 to add to cart!');
+      });
+
+      // open modal function
+      const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+
+
+      };
+      // open modal event
+      openModalBtn.addEventListener("click", openModal);
+
+      var checkbox = document.querySelector("input[id=menuCheckbox]");
+      checkbox.addEventListener('change', function () {
+        if (this.checked) {
+          document.querySelector("#menuToggle").style = "position:fixed"
+        } else {
+          document.querySelector("#menuToggle").style = "position:relative"
+        }
+      });
+      // Initialize product quantity
+      let productQuantity = 1;
+      let cart = [];
+      let productPrice = 125.00; // Set product price to $125.00
+
+      function toggleVisibility() {
+        var div = document.querySelector(".cart");
+        div.style.display = div.style.display == "none" ? "block" : "none";
+        if (!cart.length) {
+          document.getElementById('cart-items').innerHTML = "<p>Your cart is empty</p>"
+
+        }
       }
-    }
 
-    // Function to update the cart display
-    function updateCartDisplay() {
-      const cartItemsDiv = document.getElementById('cart-items');
-      cartItemsDiv.innerHTML = ''; // Clear current cart items
-      let total = 0
-      cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity
-        total += itemTotal
-        const itemDiv = document.createElement('div');
-        itemDiv.innerHTML =
+      // Function to increase product quantity
+      function increaseQuantity() {
+        productQuantity++;
+        updateQuantityDisplay();
+      }
 
-          `<div class="cart-container">
+      // Function to decrease product quantity
+      function decreaseQuantity() {
+        if (productQuantity > 1) {
+          productQuantity--;
+        }
+        updateQuantityDisplay();
+      }
+
+      function deleteItem() {
+        cart = []
+        if (!cart.length) {
+          document.getElementById('cart-items').innerHTML = "<p>Your cart is empty</p>"
+          document.querySelector(".quantity-thumb").innerHTML = ""
+          document.querySelector(".quantity-thumb").style = "display:none"
+        }
+      }
+      // Function to update the quantity display
+      function updateQuantityDisplay() {
+        document.getElementById('quantity').innerText = productQuantity;
+      }
+      // Function to update the price display
+      function updatePriceDisplay() {
+        document.getElementById('price').innerText = productPrice.toFixed(2);
+      }
+
+      // Function to add product to cart
+      function addToCart() {
+        if (productQuantity > 0) {
+          const existingItemIndex = cart.findIndex(item => item.productName === 'Fall Limited Edition Sneakers');
+          if (existingItemIndex >= 0) {
+            // If the product already exists in the cart, update its quantity
+            cart[existingItemIndex].quantity += productQuantity;
+          } else {
+            // Otherwise, add a new product to the cart
+            cart.push({ productName: 'Fall Limited Edition Sneakers', price: productPrice, quantity: productQuantity });
+          }
+          updateCartDisplay();
+        } else {
+          alert('Quantity must be greater than 0 to add to cart!');
+        }
+      }
+
+      // Function to update the cart display
+      function updateCartDisplay() {
+        const cartItemsDiv = document.getElementById('cart-items');
+        cartItemsDiv.innerHTML = ''; // Clear current cart items
+        let total = 0
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.quantity
+          total += itemTotal
+          const itemDiv = document.createElement('div');
+          itemDiv.innerHTML =
+
+            `<div class="cart-container">
            <img class="image-small" src="./images/image-product-1-thumbnail.jpg" alt="picture">
            <div>
             <small>${item.productName}</small></br>
@@ -264,21 +342,21 @@
             </div> 
             </div> 
           `;
-        cartItemsDiv.appendChild(itemDiv);
-        document.querySelector(".quantity-thumb").innerHTML = item.quantity
-        document.querySelector(".quantity-thumb").style = "display:flex"
+          cartItemsDiv.appendChild(itemDiv);
+          document.querySelector(".quantity-thumb").innerHTML = item.quantity
+          document.querySelector(".quantity-thumb").style = "display:flex"
 
-      });
+        });
 
-      if (cart.length === 0) {
-        cartItemsDiv.innerText = 'Your cart is empty.';
+        if (cart.length === 0) {
+          cartItemsDiv.innerText = 'Your cart is empty.';
+        }
+
+        document.getElementById("total").innerText = total.toFixed(2)
       }
 
-      document.getElementById("total").innerText = total.toFixed(2)
-    }
 
 
-    document.addEventListener('DOMContentLoaded', function () {
       var main = new Splide('#main-carousel', {
         type: 'fade',
         rewind: true,
@@ -311,6 +389,35 @@
       main.sync(thumbnails);
       main.mount();
       thumbnails.mount();
+
+      var mainModal = new Splide('#main-carousel-modal', {
+        type: 'fade',
+        rewind: true,
+        pagination: false,
+        arrows: true,
+
+      });
+
+
+      var thumbnailsModal = new Splide('#thumbnail-carousel-modal', {
+        fixedWidth: 100,
+        fixedHeight: 80,
+        gap: 10,
+        rewind: true,
+        pagination: false,
+        isNavigation: true,
+        arrows: false,
+        breakpoints: {
+          900: {
+            fixedWidth: 60,
+            fixedHeight: 44,
+          },
+        },
+      });
+
+      mainModal.sync(thumbnailsModal);
+      mainModal.mount();
+      thumbnailsModal.mount();
 
 
 
