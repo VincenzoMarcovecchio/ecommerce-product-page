@@ -22,12 +22,15 @@ nav {
     align-items: center;
     justify-content: flex-start;
     height: 4rem;
-    padding: 1.5rem 0;
+    padding: 1.3rem;
     border-bottom: 1px solid hsl(0, 0%, 65%);
 }
-
+nav svg, nav img {
+  cursor: pointer;
+}
 .logo {
-    margin-bottom: 5px;
+    margin-bottom: 0.4px;
+    margin-left: 0.6rem;
 
 }
 
@@ -278,7 +281,7 @@ hr {
 .right-product h3 {
 color: hsl(220, 13%, 13%);
  margin: 1rem auto 1rem ;
- font-size: 1.6rem;
+ font-size: 1.8rem;
 
 }
 .right-product p {
@@ -320,6 +323,7 @@ del {
     cursor: pointer;
     padding: 0.3rem 0.8rem;
     border-radius: 4px;
+    width: 100%;
 }
 .counter span:first-child {
     color: hsl(26, 100%, 55%);
@@ -332,7 +336,14 @@ del {
     color: hsl(26, 100%, 55%);
     font-size: 1.5rem;
 }
+.price-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 .price-action button {
+  cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -346,16 +357,26 @@ del {
 .price-action svg {
 margin-right: 0.8rem;
 }
+
+.checkout-btn 
+{
+  background-color: hsl(26, 100%, 55%);
+  color: #232323;
+  width: calc(100%);
+  margin: 1.3rem auto ;
+  padding: 0.8rem 1rem;
+  border: none;
+  font-weight: 500;
+  border-radius: 8px;
+}
 .cart {
-    border: 1px solid #232323;
     position: absolute;
     right: 0;
     left: 0;
-    top: 75px;
+    top: 64px;
     width: 96%;
     margin: auto;
-   
-    box-shadow:0px 33px 28px 0px hsl(220, 14%, 95%);
+    box-shadow:0px 33px 28px 0px hsl(240, 0%, 52%);
     border-radius: 8px;
     z-index: 50;
     background-color: hsl(220, 14%, 95%);
@@ -377,7 +398,7 @@ align-items: center;
 justify-content: flex-start;
 }
 .cart-container svg {
-    margin-left: 1rem;
+    margin-left: auto;
     margin-top: 0.2rem;
 }
 .image-small {
@@ -390,6 +411,11 @@ justify-content: flex-start;
 .modal {
 display: none;
 }
+.product-price-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 @media (min-width: 900px){
    
    body {
@@ -397,8 +423,20 @@ display: none;
     margin: auto;
 }
     nav {
-        position: relative;
+    padding: unset;
+      position: relative;
     }
+
+
+.logo {
+    margin-bottom: unset;
+    margin-left: unset;
+}
+.cart {
+  max-width: 350px;
+  right: 10px;
+  left: unset;
+}
     #menuToggle span {
         display: none;
     }
@@ -429,11 +467,12 @@ display: none;
 .hero-product {
    margin: 5rem auto;
    flex-direction: row;
-   width: 80%;
+   width: 92%;
 }
 
 .left-product {
-    max-width: 30vw;
+   margin-right: 4.5rem;
+   max-width: 27vw;
 }
 
 .left-product img {
@@ -512,4 +551,28 @@ button {
 .hidden {
   display: none;
 }
+.price-action {
+  flex-direction: row;
+}
+.price-action button {
+  max-width: 10rem;
+}
+.counter {
+  margin-right: 1rem;
+}
+.product-price {
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: auto;
+
+}
+.product-price-container {
+  margin-right: auto;
+}
+del {
+  margin-right: auto;
+  margin-left: unset;
+  margin-top: 0.4rem;
+}
+
 }
